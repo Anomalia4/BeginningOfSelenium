@@ -44,7 +44,6 @@ public class LoginPageTestClass {
     public void loginToSalesforce(){
         loginPage.setUsername("sergey.karpenko@pexlify.com.preprod.community");
         loginPage.setPassword("tHXBqJgrmSSbhItN3cRF");
-        //loginPage.clickRememberMe();
         loginPage.clickIAcceptTermsAndConditions();
         loginPage.clickLoginButton();
         wait.until(ExpectedConditions.presenceOfElementLocated(By.className("navigationMenuWrapper")));
