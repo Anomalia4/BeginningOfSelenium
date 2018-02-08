@@ -62,8 +62,4 @@ public class LoginPage {
     public boolean incorrectUsernameOrPasswordMessageIsDisplayed(){
         return (incorrectUsernameOrPasswordMessage.isDisplayed());
     }
-
-   /* public void waitingForLoadingElementByClassName(String className){
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.className(className)));
-    } */
 }
