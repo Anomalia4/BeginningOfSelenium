@@ -16,7 +16,7 @@ public class LoginPageTestClass {
     @Before
     public void setup(){
         driver.get("https://preprod-smartbox.cs86.force.com/s/login/?language=en_GB");
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("71:2;a")));
+        wait.until(ExpectedConditions.visibilityOf(loginPage.loginButton));
     }
 
     @Test

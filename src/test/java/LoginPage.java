@@ -13,16 +13,16 @@ public class LoginPage {
         PageFactory.initElements(driver, this);
     }
 
-    @FindBy(id = "71:2;a")
+    @FindBy(className = "pmp_login_username")
     private WebElement usernameField;
 
-    @FindBy(id = "81:2;a")
+    @FindBy(className = "pmp_login_password")
     private WebElement passwordField;
 
-    @FindBy(id = "93:2;a")
+    @FindBy(className = "rememberCheckbox")
     private WebElement remeberMeCheckbox;
 
-    @FindBy(xpath = "//input[@id='103:2;a' and @class='uiInput uiInputCheckbox uiInput--default uiInput--checkbox']")
+    @FindBy(xpath = "//input[@id='120:2;a' and @class='uiInput uiInputCheckbox uiInput--default uiInput--checkbox']")
     private WebElement iAcceptTermsAndConditionsCheckbox;
 
     @FindBy(linkText = "Terms and Conditions")
@@ -31,11 +31,11 @@ public class LoginPage {
     @FindBy(linkText = "Forgot your password?")
     private WebElement forgotYourPasswordLink;
 
-    @FindBy(css = "button.slds-button.slds-button--brand.pmp_login_button.uiButton--default.uiButton")
+    @FindBy(className = "pmp_login_button")
     WebElement loginButton;
 
     @FindBy(xpath = "//h4[contains(text(), 'Your login attempt has failed. Make sure the username and password are correct.')]")
-    WebElement incorrectUsernameOrPasswordMessage;
+    protected WebElement incorrectUsernameOrPasswordMessage;
 
     public void setUsername(String username){
         usernameField.clear();
