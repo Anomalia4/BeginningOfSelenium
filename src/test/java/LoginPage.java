@@ -37,6 +37,9 @@ public class LoginPage {
     @FindBy(xpath = "//h4[contains(text(), 'Your login attempt has failed. Make sure the username and password are correct.')]")
     protected WebElement incorrectUsernameOrPasswordMessage;
 
+    @FindBy (xpath = "//h4[contains(text(), 'Please indicate that you agree to the Terms And Condtitions')]")
+    protected WebElement indicateAgreementWithTermsAndConditionsErrorMessage;
+
     public void setUsername(String username){
         usernameField.clear();
         usernameField.sendKeys(username);
@@ -59,7 +62,4 @@ public class LoginPage {
         iAcceptTermsAndConditionsCheckbox.click();
     }
 
-    public boolean incorrectUsernameOrPasswordMessageIsDisplayed(){
-        return (incorrectUsernameOrPasswordMessage.isDisplayed());
-    }
 }
