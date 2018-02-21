@@ -21,8 +21,8 @@ public class LoginPage {
 
     @FindBy(className = "rememberCheckbox")
     private WebElement remeberMeCheckbox;
-
-    @FindBy(xpath = "//input[@id='120:2;a' and @class='uiInput uiInputCheckbox uiInput--default uiInput--checkbox']")
+    
+    @FindBy(xpath = "//input[@id='120:2;a' and @class='terms_and_conditions_checkbox uiInput uiInputCheckbox uiInput--default uiInput--checkbox']")
     private WebElement iAcceptTermsAndConditionsCheckbox;
 
     @FindBy(linkText = "Terms and Conditions")
