@@ -32,13 +32,19 @@ public class LoginPage {
     private WebElement forgotYourPasswordLink;
 
     @FindBy(className = "pmp_login_button")
-    WebElement loginButton;
+    protected WebElement loginButton;
+
+    @FindBy(css = "div.slds-modal.slds-fade-in-open.cModal.cTermsAndConditionsModal")
+    protected WebElement termsAndConditionsModalScreen;
 
     @FindBy(xpath = "//h4[contains(text(), 'Your login attempt has failed. Make sure the username and password are correct.')]")
     protected WebElement incorrectUsernameOrPasswordMessage;
 
-    @FindBy (xpath = "//h4[contains(text(), 'Please indicate that you agree to the Terms And Condtitions')]")
+    @FindBy(xpath = "//h4[contains(text(), 'Please indicate that you agree to the Terms And Condtitions')]")
     protected WebElement indicateAgreementWithTermsAndConditionsErrorMessage;
+
+    @FindBy(css = "button.slds-button.slds-p-horizontal_large")
+    protected WebElement termsAndConditionsAcceptButton;
 
     public void setUsername(String username){
         usernameField.clear();
@@ -58,8 +64,16 @@ public class LoginPage {
         remeberMeCheckbox.click();
     }
 
-    public void clickIAcceptTermsAndConditions(){
+    public void clickIAcceptTermsAndConditionsCheckbox(){
         iAcceptTermsAndConditionsCheckbox.click();
+    }
+
+    public void clickTermsAndConditionsLink(){
+        termsAndConditionsLink.click();
+    }
+
+    public boolean termsAndConditionsAcceptButtonIsClickable(){
+        return termsAndConditionsAcceptButton.isEnabled();
     }
 
 }
