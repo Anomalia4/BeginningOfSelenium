@@ -48,8 +48,8 @@ public class LoginPageTestClass{
 
     @Test
     public void t3_loginWithoutAcceptingTermsAndConditions(){
-        loginPage.setUsername(/*System.getenv("SB_PREPROD_COMMUNITY_USERNAME")*/"asd");
-        loginPage.setPassword(/*System.getenv("SB_PREPROD_COMMUNITY_PASSWORD")*/"asdasd");
+        loginPage.setUsername(System.getenv("SB_PREPROD_COMMUNITY_USERNAME"));
+        loginPage.setPassword(System.getenv("SB_PREPROD_COMMUNITY_PASSWORD"));
         loginPage.clickLoginButton();
         loginPage.tryToWaitForCondition(ExpectedConditions.textToBePresentInElement(loginPage.indicateAgreementWithTermsAndConditionsErrorMessage,
                 "Please indicate that you agree to the Terms And Condtitions"),
