@@ -12,12 +12,12 @@ public class LoginPageTestClass{
     private WebDriver driver = new ChromeDriver();
     private LoginPage loginPage = new LoginPage(driver);
     private JavascriptExecutor jse = (JavascriptExecutor)driver;
-    private WebDriverWait wait = new WebDriverWait(driver, 5, 1000);
 
     @Before
     public void setup(){
         driver.get("https://preprod-smartbox.cs86.force.com/s/login/?language=en_GB");
-        wait.until(ExpectedConditions.elementToBeClickable(loginPage.loginButton));
+        loginPage.tryToWaitForElement(ExpectedConditions.elementToBeClickable(loginPage.loginButton),
+                "\n**Fail on setup** \nLogin button was not found");
     }
 
     @Test
@@ -26,9 +26,10 @@ public class LoginPageTestClass{
         loginPage.setPassword(System.getenv("SB_PREPROD_COMMUNITY_PASSWORD"));
         loginPage.clickIAcceptTermsAndConditionsCheckbox();
         loginPage.clickLoginButton();
-        wait.until(ExpectedConditions.textToBePresentInElement(loginPage.incorrectUsernameOrPasswordMessage,
-                "Your login attempt has failed. Make sure the username and password are correct."));
-        Assert.assertTrue("Incorrect login error message is not displayed or this message is wrong",
+        loginPage.tryToWaitForCondition(ExpectedConditions.textToBePresentInElement(loginPage.incorrectUsernameOrPasswordMessage,
+                "Your login attempt has failed. Make sure the username and password are correct."),
+                "\n**Fail on t1_loginWithWrongUsername** \nLogin error message is wrong (or it`s not displayed)");
+        Assert.assertTrue("Incorrect login error message is not displayed",
                 loginPage.incorrectUsernameOrPasswordMessage.isDisplayed());
     }
 
@@ -38,20 +39,22 @@ public class LoginPageTestClass{
         loginPage.setPassword("Wrong_Password");
         loginPage.clickIAcceptTermsAndConditionsCheckbox();
         loginPage.clickLoginButton();
-        wait.until(ExpectedConditions.textToBePresentInElement(loginPage.incorrectUsernameOrPasswordMessage,
-                "Your login attempt has failed. Make sure the username and password are correct."));
+        loginPage.tryToWaitForCondition(ExpectedConditions.textToBePresentInElement(loginPage.incorrectUsernameOrPasswordMessage,
+                "Your login attempt has failed. Make sure the username and password are correct."),
+                "\n**Fail on t2_loginWithWrongPassword** \nLogin error message is wrong (or it`s not displayed)");
         Assert.assertTrue("Incorrect password error message is not displayed or this message is wrong",
                 loginPage.incorrectUsernameOrPasswordMessage.isDisplayed());
     }
 
     @Test
-    public void t3_loginWithoutAcceptingTermsAndCondtions(){
-        loginPage.setUsername(System.getenv("SB_PREPROD_COMMUNITY_USERNAME"));
-        loginPage.setPassword(System.getenv("SB_PREPROD_COMMUNITY_PASSWORD"));
+    public void t3_loginWithoutAcceptingTermsAndConditions(){
+        loginPage.setUsername(/*System.getenv("SB_PREPROD_COMMUNITY_USERNAME")*/"asd");
+        loginPage.setPassword(/*System.getenv("SB_PREPROD_COMMUNITY_PASSWORD")*/"asdasd");
         loginPage.clickLoginButton();
-        wait.until(ExpectedConditions.textToBePresentInElement(loginPage.indicateAgreementWithTermsAndConditionsErrorMessage,
-                "Please indicate that you agree to the Terms And Condtitions"));
-        Assert.assertTrue("Indicate agreement with Terms and Conditions message is not displayed or this message is wrong",
+        loginPage.tryToWaitForCondition(ExpectedConditions.textToBePresentInElement(loginPage.indicateAgreementWithTermsAndConditionsErrorMessage,
+                "Please indicate that you agree to the Terms And Condtitions"),
+                "\n**Fail on t3_loginWithoutAcceptingTermsAndConditions** \nTerms and Conditions message is wrong (or it`s not displayed)");
+        Assert.assertTrue("Indicate agreement with Terms and Conditions message is not displayed",
                 loginPage.indicateAgreementWithTermsAndConditionsErrorMessage.isDisplayed());
     }
 
@@ -61,8 +64,9 @@ public class LoginPageTestClass{
         loginPage.setPassword(System.getenv("SB_PREPROD_COMMUNITY_PASSWORD"));
         loginPage.clickIAcceptTermsAndConditionsCheckbox();
         loginPage.clickLoginButton();
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.className("navigationMenuWrapper")));
-        Assert.assertTrue("Partner should be redirected to Home page after log in", driver.getCurrentUrl().contains("smartbox.cs86.force.com/s/"));
+        loginPage.tryToWaitForElement(ExpectedConditions.presenceOfElementLocated(By.className("navigationMenuWrapper")),
+                "\n**Fail on t4_loginToSalesforce** \nNavigation menu bar was not found");
+        Assert.assertTrue("Partner should be redirected to Home page after log in", driver.getCurrentUrl().equals("https://preprod-smartbox.cs86.force.com/s/"));
     }
 
     @Test
@@ -75,19 +79,18 @@ public class LoginPageTestClass{
     @Test
     public void t6_acceptButtonIsDisabledAfterOpeningTermsAndConditionsModalScreen(){
         loginPage.clickTermsAndConditionsLink();
-        wait.until(ExpectedConditions.visibilityOf(loginPage.termsAndConditionsModalScreen));
+        loginPage.tryToWaitForElement(ExpectedConditions.visibilityOf(loginPage.termsAndConditionsModalScreen),
+                "\n**Fail on t6_acceptButtonIsDisabledAfterOpeningTermsAndConditionsModalScreen** \nTerms and Conditions modal window was not opened");
         Assert.assertTrue("'Accept' button should not be clickable until Terms and Conditions scrolled down",
                 !loginPage.termsAndConditionsAcceptButtonIsClickable());
     }
 
     @Test
-    public void t7_acceptButtonIsActiveAfterScrollingDownTermsAndConditionsModalScreen() throws Exception{
+    public void t7_acceptButtonIsActiveAfterScrollingDownTermsAndConditionsModalScreen(){
         loginPage.clickTermsAndConditionsLink();
-        wait.until(ExpectedConditions.visibilityOf(loginPage.termsAndConditionsModalScreen));
-        jse.executeScript("arguments[0].scrollTop = 6974;", driver.findElements(By.className("slds-modal__content")).get(1));
-        Thread.sleep(5000);
-        jse.executeScript("window.scrollTo(0, 500)");
-        Thread.sleep(5000);
+        loginPage.tryToWaitForElement(ExpectedConditions.visibilityOf(loginPage.termsAndConditionsModalScreen),
+                "\n**Fail on t7_acceptButtonIsActiveAfterScrollingDownTermsAndConditionsModalScreen** \nTerms and Conditions modal window was not opened");
+        jse.executeScript("arguments[0].scrollTop = arguments[0].scrollHeight;", driver.findElements(By.className("slds-modal__content")).get(1));
         Assert.assertTrue("'Accept' button should be clickable until Terms and Conditions scrolled down",
                 loginPage.termsAndConditionsAcceptButtonIsClickable());
     }

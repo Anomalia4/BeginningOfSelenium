@@ -2,14 +2,17 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 
 public class LoginPage {
     private WebDriver driver;
-   // private WebDriverWait wait;
+    private WebDriverWait wait;
     public LoginPage(WebDriver webDriver){
         driver = webDriver;
-       // wait = new WebDriverWait(driver, 3, 500);
+        wait = new WebDriverWait(driver, 5, 800);
         PageFactory.initElements(driver, this);
     }
 
@@ -76,4 +79,21 @@ public class LoginPage {
         return termsAndConditionsAcceptButton.isEnabled();
     }
 
+    public void tryToWaitForElement(ExpectedCondition<WebElement> conditions, String errorMessage){
+        try {
+            wait.until(conditions);
+        }
+        catch (Exception ex){
+            System.out.println(errorMessage);
+        }
+    }
+
+    public void tryToWaitForCondition(ExpectedCondition<Boolean> conditions, String errorMessage){
+        try {
+            wait.until(conditions);
+        }
+        catch (Exception ex){
+            System.out.println(errorMessage);
+        }
+    }
 }
