@@ -91,7 +91,7 @@ public class LoginPageTestClass{
         loginPage.tryToWaitForElement(ExpectedConditions.visibilityOf(loginPage.termsAndConditionsModalScreen),
                 "\n**Fail on t7_acceptButtonIsActiveAfterScrollingDownTermsAndConditionsModalScreen** \nTerms and Conditions modal window was not opened");
         jse.executeScript("arguments[0].scrollTop = arguments[0].scrollHeight;", driver.findElements(By.className("slds-modal__content")).get(1));
-        Assert.assertTrue("'Accept' button should be clickable until Terms and Conditions scrolled down",
+        Assert.assertTrue("'Accept' button should be clickable after Terms and Conditions scrolled down",
                 loginPage.termsAndConditionsAcceptButtonIsClickable());
     }
 
