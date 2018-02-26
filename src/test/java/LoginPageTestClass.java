@@ -5,7 +5,6 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class LoginPageTestClass{
@@ -52,7 +51,7 @@ public class LoginPageTestClass{
         loginPage.setPassword(System.getenv("SB_PREPROD_COMMUNITY_PASSWORD"));
         loginPage.clickLoginButton();
         loginPage.tryToWaitForCondition(ExpectedConditions.textToBePresentInElement(loginPage.indicateAgreementWithTermsAndConditionsErrorMessage,
-                "Please indicate that you agree to the Terms And Condtitions"),
+                "Please indicate that you agree to the Terms And Conditions"),
                 "\n**Fail on t3_loginWithoutAcceptingTermsAndConditions** \nTerms and Conditions message is wrong (or it`s not displayed)");
         Assert.assertTrue("Indicate agreement with Terms and Conditions message is not displayed",
                 loginPage.indicateAgreementWithTermsAndConditionsErrorMessage.isDisplayed());
@@ -93,6 +92,21 @@ public class LoginPageTestClass{
         jse.executeScript("arguments[0].scrollTop = arguments[0].scrollHeight;", driver.findElements(By.className("slds-modal__content")).get(1));
         Assert.assertTrue("'Accept' button should be clickable after Terms and Conditions scrolled down",
                 loginPage.termsAndConditionsAcceptButtonIsClickable());
+    }
+
+    @Test
+    public void t8_checkAboutMyUsernameTextIsDisplayedAfterClickDownButton(){
+        loginPage.clickAboutMyUsernameArrow();
+        Assert.assertTrue("'About my username' text is not displayed (or it`s wrong)", loginPage.aboutMyUsernameTextIsDisplayed());
+    }
+
+    @Test
+    public void t9_checkForgotYourPasswordRedirectLink(){
+        loginPage.clickForgotYourPasswordLink();
+        loginPage.tryToWaitForElement(ExpectedConditions.elementToBeClickable(By.cssSelector("button.sfdc_button.uiButton--default.uiButton")),
+                "Reset password page was not downloaded");
+        Assert.assertTrue("Resset password page was not downloaded or it has wrong URL",
+                driver.getCurrentUrl().equals("https://preprod-smartbox.cs86.force.com/s/login/ForgotPassword?language=en_GB"));
     }
 
     @After

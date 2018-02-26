@@ -3,7 +3,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 
@@ -47,7 +46,13 @@ public class LoginPage {
     protected WebElement indicateAgreementWithTermsAndConditionsErrorMessage;
 
     @FindBy(css = "button.slds-button.slds-p-horizontal_large")
-    protected WebElement termsAndConditionsAcceptButton;
+    private WebElement termsAndConditionsAcceptButton;
+
+    @FindBy(className = "iconDown")
+    private WebElement aboutMyUsernameArrow;
+
+    @FindBy(className = "slds-p-top--small")
+    private WebElement aboutMyUsernameText;
 
     public void setUsername(String username){
         usernameField.clear();
@@ -77,6 +82,18 @@ public class LoginPage {
 
     public boolean termsAndConditionsAcceptButtonIsClickable(){
         return termsAndConditionsAcceptButton.isEnabled();
+    }
+
+    public void clickAboutMyUsernameArrow(){
+        aboutMyUsernameArrow.click();
+    }
+
+    public boolean aboutMyUsernameTextIsDisplayed(){
+        return aboutMyUsernameText.isDisplayed();
+    }
+
+    public void clickForgotYourPasswordLink(){
+        forgotYourPasswordLink.click();
     }
 
     public void tryToWaitForElement(ExpectedCondition<WebElement> conditions, String errorMessage){
