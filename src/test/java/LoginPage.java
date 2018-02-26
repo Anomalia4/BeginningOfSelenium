@@ -8,10 +8,10 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class LoginPage {
     private WebDriver driver;
-    private WebDriverWait wait;
+    protected TestUtilities utilities;
     public LoginPage(WebDriver webDriver){
         driver = webDriver;
-        wait = new WebDriverWait(driver, 5, 800);
+        utilities = new TestUtilities(driver);
         PageFactory.initElements(driver, this);
     }
 
@@ -53,6 +53,15 @@ public class LoginPage {
 
     @FindBy(className = "slds-p-top--small")
     private WebElement aboutMyUsernameText;
+
+    @FindBy(css = "button.slds-button.slds-button--neutral.uiButton--default.uiButton")
+    private WebElement notAMemberButton;
+
+    @FindBy(css = "button.slds-button.slds-button--neutral.slds-picklist__label")
+    private WebElement selectPreferedLanguageButton;
+
+    @FindBy(css = "div .slds-dropdown__list.slds-dropdown--length-5")
+    protected WebElement languageDropdown;
 
     public void setUsername(String username){
         usernameField.clear();
@@ -96,21 +105,11 @@ public class LoginPage {
         forgotYourPasswordLink.click();
     }
 
-    public void tryToWaitForElement(ExpectedCondition<WebElement> conditions, String errorMessage){
-        try {
-            wait.until(conditions);
-        }
-        catch (Exception ex){
-            System.out.println(errorMessage);
-        }
+    public void clickNotAMemberButton(){
+        notAMemberButton.click();
     }
 
-    public void tryToWaitForCondition(ExpectedCondition<Boolean> conditions, String errorMessage){
-        try {
-            wait.until(conditions);
-        }
-        catch (Exception ex){
-            System.out.println(errorMessage);
-        }
+    public void clickSelectPreferedLanguageButton(){
+        selectPreferedLanguageButton.click();
     }
 }
