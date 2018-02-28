@@ -133,10 +133,13 @@ public class LoginPageTestClass{
     @Test
     public void t13_checkLanguageSwitching(){
         loginPage.clickSelectPreferedLanguageButton();
-        loginPage.getPreferedLanguageValueByLanguage("it").click();
+        loginPage.languageDropdownOptions.get(0).click();
         loginPage.utilities.tryToWaitForElement(ExpectedConditions.elementToBeClickable(loginPage.loginButton),
-                "\n**Fail on setup** \nLogin button was not found");
-        Assert.assertTrue("Language is not correct. Should be italian", driver.getCurrentUrl().equals("https://preprod-smartbox.cs86.force.com/s/login/SelfRegister?language=it"));
+                "\n**Fail on t13_checkLanguageSwitching** \nLogin button was not found");
+        System.out.println("https://preprod-smartbox.cs86.force.com/s/login/?language=" + loginPage.getLanguageFromPreferedLanguageOption());
+        System.out.println(driver.getCurrentUrl());
+        Assert.assertTrue("Language is not correct",
+                driver.getCurrentUrl().contains(loginPage.getLanguageFromPreferedLanguageOption()));
     }
 
     @After

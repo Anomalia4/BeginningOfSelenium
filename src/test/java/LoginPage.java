@@ -118,11 +118,7 @@ public class LoginPage {
         selectPreferedLanguageButton.click();
     }
 
-    public WebElement getPreferedLanguageValueByLanguage(String language){
-        int i;
-        for(i = 0; i < languageDropdownOptions.size(); i ++){
-            if(languageDropdownOptions.get(i).getAttribute("data-language") == language) break;
-        }
-        return languageDropdownOptions.get(i);
+    public String getLanguageFromPreferedLanguageOption(){
+        return languageDropdownOptions.get(0).getAttribute("data-language");
     }
 }
