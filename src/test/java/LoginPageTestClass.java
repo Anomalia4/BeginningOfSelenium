@@ -136,8 +136,6 @@ public class LoginPageTestClass{
         loginPage.languageDropdownOptions.get(0).click();
         loginPage.utilities.tryToWaitForElement(ExpectedConditions.elementToBeClickable(loginPage.loginButton),
                 "\n**Fail on t13_checkLanguageSwitching** \nLogin button was not found");
-        System.out.println("https://preprod-smartbox.cs86.force.com/s/login/?language=" + loginPage.getLanguageFromPreferedLanguageOption());
-        System.out.println(driver.getCurrentUrl());
         Assert.assertTrue("Language is not correct",
                 driver.getCurrentUrl().contains(loginPage.getLanguageFromPreferedLanguageOption()));
     }
