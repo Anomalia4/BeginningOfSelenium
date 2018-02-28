@@ -115,13 +115,28 @@ public class LoginPageTestClass{
         loginPage.utilities.tryToWaitForElement(ExpectedConditions.visibilityOfElementLocated(By.className("confirmButton")),
                 "Self Register page was not downloaded");
         Assert.assertTrue("Self Register page was not downloaded or it has wrong URL",
-                driver.getCurrentUrl().equals("https://preprod-smartbox.cs86.force.com/s/login/SelfRegister?language=en"));
+                driver.getCurrentUrl().equals("https://preprod-smartbox.cs86.force.com/s/login/SelfRegister?language=en_GB"));
     }
 
     @Test
     public void t11_checkSelectPreferedLanguageDropdown(){
         loginPage.clickSelectPreferedLanguageButton();
         Assert.assertTrue("Language dropdown is not visible", loginPage.languageDropdown.isDisplayed());
+    }
+
+    @Test
+    public void t12_checkNumberOfOptionsForPreferedLanguageDropdown(){
+        loginPage.clickSelectPreferedLanguageButton();
+        Assert.assertTrue("There is a wrong number of options for Prefered Language Dropdown", loginPage.languageDropdownOptions.size() == 9);
+    }
+
+    @Test
+    public void t13_checkLanguageSwitching(){
+        loginPage.clickSelectPreferedLanguageButton();
+        loginPage.getPreferedLanguageValueByLanguage("it").click();
+        loginPage.utilities.tryToWaitForElement(ExpectedConditions.elementToBeClickable(loginPage.loginButton),
+                "\n**Fail on setup** \nLogin button was not found");
+        Assert.assertTrue("Language is not correct. Should be italian", driver.getCurrentUrl().equals("https://preprod-smartbox.cs86.force.com/s/login/SelfRegister?language=it"));
     }
 
     @After

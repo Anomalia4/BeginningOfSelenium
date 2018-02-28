@@ -5,6 +5,8 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.List;
+
 
 public class LoginPage {
     private WebDriver driver;
@@ -63,6 +65,9 @@ public class LoginPage {
     @FindBy(css = "div .slds-dropdown__list.slds-dropdown--length-5")
     protected WebElement languageDropdown;
 
+    @FindBy(css = "li.slds-dropdown__item a")
+    public List<WebElement> languageDropdownOptions;
+
     public void setUsername(String username){
         usernameField.clear();
         usernameField.sendKeys(username);
@@ -111,5 +116,13 @@ public class LoginPage {
 
     public void clickSelectPreferedLanguageButton(){
         selectPreferedLanguageButton.click();
+    }
+
+    public WebElement getPreferedLanguageValueByLanguage(String language){
+        int i;
+        for(i = 0; i < languageDropdownOptions.size(); i ++){
+            if(languageDropdownOptions.get(i).getAttribute("data-language") == language) break;
+        }
+        return languageDropdownOptions.get(i);
     }
 }
