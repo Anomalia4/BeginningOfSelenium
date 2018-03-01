@@ -22,7 +22,7 @@ public class LoginPageTestClass{
     @Test
     public void t01_loginWithWrongUsername(){
         loginPage.setUsername("wrong.username@test.com.preprod.community");
-        loginPage.setPassword(System.getenv("SB_PREPROD_COMMUNITY_PASSWORD"));
+        loginPage.setPassword(OrganizationCredentials.getPassword("community"));
         loginPage.clickIAcceptTermsAndConditionsCheckbox();
         loginPage.clickLoginButton();
         loginPage.utilities.tryToWaitForCondition(ExpectedConditions.textToBePresentInElement(loginPage.incorrectUsernameOrPasswordMessage,
@@ -34,7 +34,7 @@ public class LoginPageTestClass{
 
     @Test
     public void t02_loginWithWrongPassword(){
-        loginPage.setUsername(System.getenv("SB_PREPROD_COMMUNITY_USERNAME"));
+        loginPage.setUsername(OrganizationCredentials.getUsername("community"));
         loginPage.setPassword("Wrong_Password");
         loginPage.clickIAcceptTermsAndConditionsCheckbox();
         loginPage.clickLoginButton();
@@ -47,8 +47,8 @@ public class LoginPageTestClass{
 
     @Test
     public void t03_loginWithoutAcceptingTermsAndConditions(){
-        loginPage.setUsername(System.getenv("SB_PREPROD_COMMUNITY_USERNAME"));
-        loginPage.setPassword(System.getenv("SB_PREPROD_COMMUNITY_PASSWORD"));
+        loginPage.setUsername(OrganizationCredentials.getUsername("community"));
+        loginPage.setPassword(OrganizationCredentials.getPassword("community"));
         loginPage.clickLoginButton();
         loginPage.utilities.tryToWaitForCondition(ExpectedConditions.textToBePresentInElement(loginPage.indicateAgreementWithTermsAndConditionsErrorMessage,
                 "Please indicate that you agree to the Terms And Conditions"),
@@ -59,8 +59,8 @@ public class LoginPageTestClass{
 
     @Test
     public void t04_loginToSalesforce(){
-        loginPage.setUsername(System.getenv("SB_PREPROD_COMMUNITY_USERNAME"));
-        loginPage.setPassword(System.getenv("SB_PREPROD_COMMUNITY_PASSWORD"));
+        loginPage.setUsername(OrganizationCredentials.getUsername("community"));
+        loginPage.setPassword(OrganizationCredentials.getPassword("community"));
         loginPage.clickIAcceptTermsAndConditionsCheckbox();
         loginPage.clickLoginButton();
         loginPage.utilities.tryToWaitForElement(ExpectedConditions.presenceOfElementLocated(By.className("navigationMenuWrapper")),
