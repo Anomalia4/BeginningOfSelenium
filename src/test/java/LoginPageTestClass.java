@@ -133,11 +133,11 @@ public class LoginPageTestClass{
     @Test
     public void t13_checkLanguageSwitching(){
         loginPage.clickSelectPreferedLanguageButton();
-        loginPage.languageDropdownOptions.get(0).click();
+        loginPage.getRandomOptionFromPreferedLanguageDropdown().click();
         loginPage.utilities.tryToWaitForElement(ExpectedConditions.elementToBeClickable(loginPage.loginButton),
                 "\n**Fail on t13_checkLanguageSwitching** \nLogin button was not found");
-        Assert.assertTrue("Language is not correct",
-                driver.getCurrentUrl().contains(loginPage.getLanguageFromPreferedLanguageOption()));
+        Assert.assertTrue("Page language is not correct",
+                driver.getCurrentUrl().endsWith(loginPage.getLanguageCodeFromPreferedLanguageOption()));
     }
 
     @After

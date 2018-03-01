@@ -6,14 +6,17 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
+import java.util.Random;
 
 
 public class LoginPage {
     private WebDriver driver;
     protected TestUtilities utilities;
+    private int randomNumberOfLanguageElement;
     public LoginPage(WebDriver webDriver){
         driver = webDriver;
         utilities = new TestUtilities(driver);
+        randomNumberOfLanguageElement = utilities.getRandomIntegerValue(9);
         PageFactory.initElements(driver, this);
     }
 
@@ -118,7 +121,11 @@ public class LoginPage {
         selectPreferedLanguageButton.click();
     }
 
-    public String getLanguageFromPreferedLanguageOption(){
-        return languageDropdownOptions.get(0).getAttribute("data-language");
+    public WebElement getRandomOptionFromPreferedLanguageDropdown(){
+        return languageDropdownOptions.get(randomNumberOfLanguageElement);
+    }
+
+    public String getLanguageCodeFromPreferedLanguageOption(){
+        return getRandomOptionFromPreferedLanguageDropdown().getAttribute("data-language");
     }
 }

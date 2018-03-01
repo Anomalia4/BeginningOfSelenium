@@ -4,6 +4,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.Random;
+
 public class TestUtilities {
     private WebDriverWait wait;
     public TestUtilities(WebDriver driver){
@@ -25,5 +27,10 @@ public class TestUtilities {
         catch (Exception ex){
             Assert.assertNull(errorMessage);
         }
+    }
+
+    public int getRandomIntegerValue(int maxBound){
+        Random random = new Random();
+        return random.nextInt(maxBound);
     }
 }
