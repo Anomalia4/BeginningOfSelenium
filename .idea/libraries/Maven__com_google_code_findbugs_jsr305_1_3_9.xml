@@ -2,12 +2,14 @@
   <library name="Maven: com.google.code.findbugs:jsr305:1.3.9">
     <CLASSES>
       <root url="jar://$MAVEN_REPOSITORY$/com/google/code/findbugs/jsr305/1.3.9/jsr305-1.3.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/force-partner-api-39.0.0.jar!/" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$MAVEN_REPOSITORY$/com/google/code/findbugs/jsr305/1.3.9/jsr305-1.3.9-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
       <root url="jar://$MAVEN_REPOSITORY$/com/google/code/findbugs/jsr305/1.3.9/jsr305-1.3.9-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/salesforce-enterprise-libs-1.4.jar!/" />
     </SOURCES>
   </library>
 </component>
