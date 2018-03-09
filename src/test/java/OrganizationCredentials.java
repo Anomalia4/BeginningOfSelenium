@@ -3,6 +3,7 @@ public class OrganizationCredentials {
     private static final String preprodCommunityPassword = "tHXBqJgrmSSbhItN3cRF";
     private static final String organizationUsername = "seruy4@gmail.com";
     private static final String organizationPassword = "1234qwerASDF";
+    private static final String organizationToken = "5xfRpKLbBG1BbzMECANT0PX8";
 
     static String getUsername(String organizationName){
         String username = "";
@@ -34,6 +35,10 @@ public class OrganizationCredentials {
                 break;
         }
         return password;
+    }
+
+    static String getToken(){
+        return organizationToken;
     }
 
 }
